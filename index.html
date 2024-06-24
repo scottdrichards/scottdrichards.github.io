@@ -47,7 +47,7 @@
         body, body.dark-mode{
             --color-background: rgb(65, 65, 65);
             --color-main: rgb(239, 239, 239);
-            --color-accent: rgb(233, 223, 83);
+            --color-accent: rgb(83, 158, 233);
         }
         body.light-mode{
             --color-background: rgb(255, 255, 255);
@@ -249,8 +249,13 @@
                             padding-top: 20px;
                             img {
                                 max-height: 25px;
+                                &.black-image{
+                                    filter: invert(1);
+                                }
                             }
-
+                            li{
+                                margin-bottom: 10px;
+                            }
                         }
                     }
                 }
@@ -422,29 +427,53 @@
                         <span>Present</span>
                     </div>
                 </div>
-                <ul class="notes">
-                    <li>
-                        Helped port <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-mobile-all#use-teams-mobile-to-annotate-in-a-users-environment-preview">mixed-reality functionality to Teams mobile</a> on iOS <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png" alt="apple"/> and Android <img src="https://developer.android.com/static/images/brand/Android_Robot.svg" alt="Android"/>. Implemented tracking-lost detection and warnings and various UI improvements.
-                    </li>
-                    <li>
-                        With two others, ran <a href="https://blogs.microsoft.com/blog/2023/01/04/the-future-of-mobility-is-now-five-themes-to-watch-at-ces-2023/#:~:text=With%20HoloLens%202%20and%20Dynamics%20365%20Guides,or%20IT%20skills">a demonstration booth</a> at <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Logo_of_Consumer_Electronics_Show.svg"/>. As the sole engineer demonstrator, was instrumental in debugging and maintaining the devices and giving technical explanations to visitors.
-                    </li>
-                    <li>
-                        Worked on-call shifts, one of which involved an authentication issue which had been passed around for multiple shifts. Created a "home-lab" setup to enulate the client's proxy settings and identified a platform 
-                    </li>
-                    <li>
-                        Adopted and owned a feature in Teams. Migrated it to Fluent UI v9 and new Teams. Optimized performance as elements of the feature are run every time any Teams call is connected. Refactored parts ~~~
-                    </li>
-                    <li>
-                        Worked on Teams mobile (iOS and Android) to implement new feature.
-                    </li>
-                    <li>
-                        Mentored a summer associate who then joined the team.
-                    </li>
-                    <li>
-                        Planned, implemented, and maintained a "launcher" website for opening a native app via link or, if not yet installed, guiding users to download.
-                    </li>
-                </ul>
+                <div class="notes">
+                    As part of the Dynamics 365 Mixed-Reality team, I help support HoloLens, mobile, desktop, and web apps surrounding Dynamics 365 <a href="https://www.bing.com/search?q=dynamics+guides&cvid=b742430d520f45fcaaf6f2551e62db57&gs_lcrp=EgZjaHJvbWUqBggAEAAYQDIGCAAQABhAMgYIARAAGEAyBggCEAAYQDIGCAMQABhAMgYIBBBFGEEyBggFEEUYPDIGCAYQRRg8MgYIBxBFGEEyBggIEEUYQTIICAkQ6QcY_FXSAQgzMzAyajBqNKgCCLACAQ&FORM=ANAB01&PC=U531">Guides</a> and <a href="https://dynamics.microsoft.com/en-us/mixed-reality/remote-assist/">Remote Assist</a>. I am the UI expert for the services scrum and one of a few web experts on the team. I worked extensively in Typescript <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg/2560px-Typescript.svg.png" alt="" style="height:15px;"/> and 
+                    <ul >
+                        <li>
+                            Helped port <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-mobile-all#use-teams-mobile-to-annotate-in-a-users-environment-preview">mixed-reality functionality to Teams mobile</a> on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png" alt="iOS" class="black-image"/> and <img src="https://developer.android.com/static/images/brand/Android_Robot.svg" alt="Android" style="width:28px"/>. Implemented tracking-lost detection and warnings and various UI improvements.
+                        </li>
+                        <li>
+                            With two others, ran <a href="https://blogs.microsoft.com/blog/2023/01/04/the-future-of-mobility-is-now-five-themes-to-watch-at-ces-2023/#:~:text=With%20HoloLens%202%20and%20Dynamics%20365%20Guides,or%20IT%20skills">a demonstration booth</a> at <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Logo_of_Consumer_Electronics_Show.svg" alt="CES"/>. As the sole engineer demonstrator, was instrumental in debugging and maintaining the devices and giving technical explanations to visitors.
+                        </li>
+                        <li>
+                            Assumed long-term ownership of a customer issue that had been bounced around between multiple on-call shifts. Created a home-lab setup to enulate the client's proxy settings and identified an OS bug ignoring proxy configurations. Worked with the customer and the OS team to obtain logs and a fix.
+                        </li>
+                        <li>
+                            As the group's UI expert, migrated multiple features to Fluent UI v9.
+                        </li>
+                        <li>
+                            Implemented a <a href="https://mixedreality.dynamics.com/otc?d=1&correlationId=074349bc-97a0-475d-ac87-f633e77810ed">website to download and launch</a> Remote Assist Mobile. Designed a url scheme to open the app if installed or guide the user to download it.
+                        </li>
+                        <li>
+                            Implemented various "PCF controls" which are mini webpages for single features in the Power Apps platform. For example a <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/one-time-call#before-selecting-create-a-one-time-call-link-in-the-model-driven-app">link generation UI</a>, 
+                        </li>
+                        <li>
+                            Designed and lead a hackathon project with two others to enable an administrator to see a dynamic 3D rendering of multiple HoloLens user's locations, environments, and spatial information. <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Three.js_Icon.svg/2560px-Three.js_Icon.svg.png" alt="Three.js" class="black-image"/>
+                        </li>
+                        <li>
+                            Added UI and accessibility testing via Playwright<img src="https://playwright.dev/img/playwright-logo.svg" alt=""/> to multiple projects that lacked adequate UI testing.
+                        </li>
+                        <li>
+                            Migrated away from snapshot testing to semantic-based React-Testing-Library <img src="https://testing-library.com/img/octopus-64x64.png" alt="(RTL)"/> for less brittle testing.
+                        </li>
+                        <li>
+                            Recreated a dashboard that was compliant, accessible, performant (1-day updates to immediate), and with expanded filtering.
+                        </li>
+                        <li>
+                            Took ownership of a <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-pc-all#add-annotations-in-the-dynamics-365-remote-assist-users-environment">Teams feature</a> and brought it to general availability. As Teams has over 270 million users and the code runs on every single meeting, this was a significant milestone and required extensive testing and coordination. Oversaw the migration of the feature from Teams 1.0 to Teams 2.0. Migrated the feature to Fluent UI v9. Optimized a codeblock that caused a slight delay an an <i>extremely</i> hot path. Updated the bitwise protocol to accept an updated message format.
+                        </li>
+                        <li>
+                            Interviewed prospective candidates to join the team.
+                        </li>
+                        <li>
+                            Mentored a summer associate who then joined the team.
+                        </li>
+                        <li>
+                            Was the "security champ," trained to triage and identify potential security issues for the team. Received invaluable training about best practices during the <a href="https://msrc.microsoft.com/blog/2024/01/microsoft-actions-following-attack-by-nation-state-actor-midnight-blizzard/">Midnight Blizzard attack</a>.
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li>
                 <div class="header">
