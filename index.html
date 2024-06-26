@@ -220,9 +220,19 @@
                         overflow:hidden;
                         border:thin solid var(--color-accent);
                         border-radius: 10px;
-                        &>div{
+                        &>div {
                             width: 200px;
                             padding:10px;
+                            &>div{
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                gap: 5px;
+                                .stars{
+                                    font-size: 20px;
+                                    width: 60px;
+                                }
+                            }
                             .other{
                                 margin-top: 5px;
                                 padding-top: 10px;
@@ -232,11 +242,6 @@
                                 gap: 5px;
                                 justify-content: center;
                             }
-                        }
-                        li{
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
                         }
                     }
                 }
