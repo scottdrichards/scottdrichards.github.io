@@ -196,14 +196,52 @@
                     color: var(--color-background);
                 }
             }
+            section.introduction{
+                padding: 20px;
+                p{
+                    padding: 10px 30px;
+                    text-align: justify;
+                }
+            }
             section.technologies{
-                li{
+                .contents{
                     display: flex;
-                    align-items: center;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+                    gap: 10px;
                     padding: 10px;
-                    img, svg{
-                        height: 30px;
+                    &>div{
+                        h3{
+                            background-color: var(--color-accent);
+                            padding:0 5px;
+                            font-weight: 300;
+                            color: var(--color-background)
+                        }
+                        overflow:hidden;
+                        border:thin solid var(--color-accent);
+                        border-radius: 10px;
+                        &>div{
+                            width: 200px;
+                            padding:10px;
+                            .other{
+                                margin-top: 5px;
+                                padding-top: 10px;
+                                border-top: 2px dashed var(--color-accent);
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 5px;
+                                justify-content: center;
+                            }
+                        }
+                        li{
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                        }
                     }
+                }
+                img, svg{
+                    height: 30px;
                 }
             }
             
@@ -429,108 +467,111 @@
     </div>
     <section class="introduction">
         <h2>About Me</h2>
-        Hi
+        <p>
+            After five years as a <b>patent attorney</b> working with inventors at top tech companies, I decided to merge my maker passions and my gained technical knowledge and continue my career as an engineer. I went back to school to get a <b>Masters in Computer Science and Engineering</b>.
+        </p>
+        <p>
+            I joined Microsoft in 2022 as part of the Dynamics 365 <b>Mixed Reality</b> backend services team supporting Guides and Remote Assist applications. As the services team's <b>front end expert</b>, I have been instrumental a variety of user-facing tasks including ownership of a significant Teams feature. 
+        </p>
+        <p>
+            With my diverse background, I have experience with a wide range of technologies and concepts. I am a <b>quick learner</b> and a communicator that thrives in a <b>collaborative</b> environment. I am excited to grow in my next role.
+        </p>
     </section>
     <section class="technologies">
         <h2>Technologies</h2>
-        <ul>
-            <li>
-                <ul>
-                    <h3>Languages</h3>
-                    <li>
+        <div class="contents">
+
+            <div>
+                <h3>Languages</h3>
+                <div>
+                    <div>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg">
                         Typescript
                         <span class="stars">⭐⭐⭐</span> 
-                    </li>
-                    <li>
+                    </div>
+                    <div>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg">
                         c/c++
                         <span class="stars">⭐⭐</span> 
-                    </li>
-                    <li>
+                    </div>
+                    <div>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg">
                         Python
                         <span class="stars">⭐⭐</span> 
-                    </li>
-                    <li>
-                        Other: 
+                    </div>
+                    <div class="other">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg" alt="C#">
                         <img src="https://developer.apple.com/assets/elements/icons/swift-playgrounds-mac/swift-playgrounds-mac-96x96_2x.png" alt="Swift">
                         <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java">
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <ul>
-                    <h3>Web Frameworks & Libraries</h3>
-                    <ul>
-                        <li>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg">
-                            React
-                            <span class="stars">⭐⭐⭐</span> 
-                        </li>
-                        <li>
-                            <img src="https://angular.dev/assets/icons/favicon.ico" alt="Angular"/>
-                            Angular
-                            <span class="stars">⭐⭐</span> 
-                        </li>
-                        <li>
-                            Fluent UI
-                            <span class="stars">⭐⭐</span> 
-                        </li>
-                        <li>Other: 
-                            <img src="https://playwright.dev/img/playwright-logo.svg" alt="playwright"/> 
-                            <img src="https://upload.wikimedia.org/wikipedia/en/1/15/Logo_D3.svg" alt="d3.js"/>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg" alt="Open Layers"/>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg" alt="Three js" class="black-image"/>
-                            <img src="https://rxjs.dev/generated/images/marketing/home/Rx_Logo-512-512.png" alt="RXJS"/>
-                            <img src="https://www.mongodb.com/assets/images/global/favicon.ico" alt="MongoDB"/>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GraphQL_Logo.svg" alt="Graphql"/>
-                        </li>
-                    </ul>
-                </ul>
-            </li>
-            <li>
-                <h3>Services</h3>
-                <ul>
-                </ul>
-            </li>
-            <li>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Web Frameworks & Libraries</h3>
+                <div>
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg">
+                        React
+                        <span class="stars">⭐⭐⭐</span> 
+                    </div>
+                    <div>
+                        <img src="https://angular.dev/assets/icons/favicon.ico" alt="Angular"/>
+                        Angular
+                        <span class="stars">⭐⭐</span> 
+                    </div>
+                    <div>
+                        Fluent UI
+                        <span class="stars">⭐⭐</span> 
+                    </div>
+                    <div class="other">
+                        <img src="https://playwright.dev/img/playwright-logo.svg" alt="playwright"/> 
+                        <img src="https://upload.wikimedia.org/wikipedia/en/1/15/Logo_D3.svg" alt="d3.js"/>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg" alt="Open Layers"/>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg" alt="Three js" class="black-image"/>
+                        <img src="https://rxjs.dev/generated/images/marketing/home/Rx_Logo-512-512.png" alt="RXJS"/>
+                        <img src="https://www.mongodb.com/assets/images/global/favicon.ico" alt="MongoDB"/>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GraphQL_Logo.svg" alt="Graphql"/>
+                        <img src="https://testing-library.com/img/octopus-64x64.png" alt="React-Testing-Library"/>
+                    </div>
+                </div>
+            </div>
+            <div>
                 <h3>
                     Platforms
                 </h3>
-                <img src="https://www.docker.com/wp-content/uploads/2024/02/cropped-docker-logo-favicon-32x32.png" alt="Docker"/>
-                <img src="https://www.proxmox.com/favicon.ico" alt="Proxmox"/>
-                <img src="https://c.s-microsoft.com/favicon.ico" alt="Windows"/>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png" alt="Mac" class="black-image"/>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Linux"/>
-
-                <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Pi"/>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Microsoft Azure"/>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="Amazon Web Services"/>                    
-            </li>
-                <li>
+                <div>
+                    <img src="https://www.docker.com/wp-content/uploads/2024/02/cropped-docker-logo-favicon-32x32.png" alt="Docker"/>
+                    <img src="https://www.proxmox.com/favicon.ico" alt="Proxmox"/>
+                    <img src="https://c.s-microsoft.com/favicon.ico" alt="Windows"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png" alt="Mac" class="black-image"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Linux"/>
+        
+                    <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Pi"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Microsoft Azure"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="Amazon Web Services" style="background-color: rgb(243, 243, 243); padding:3px; border-radius: 7px; height:24px"/>   
+                </div>
+            </div>
+            <div>
+                <h3>Concepts</h3>
                 <ul>
-                    <h3>Concepts</h3>
-                    <ul>
-                        <li>
-                            Functional Programming and OOP
-                            <span class="stars">⭐⭐⭐</span>
-                        </li>
-
-                        <li>
-                            Computer vision, pattern recognition, machine learning, AI, etc.
-                            <span class="stars">⭐⭐</span>
-                        </li>
-                        <li>The entire network stack</li>
-                    </ul>
+                    <li>
+                        Functional Programming and OOP
+                        <span class="stars">⭐⭐⭐</span>
+                    </li>
+    
+                    <li>
+                        Computer vision, pattern recognition, machine learning, AI, etc.
+                        <span class="stars">⭐⭐</span>
+                    </li>
+                    <li>The entire network stack</li>
                 </ul>
-            </li>
+            </div> 
             <li>
                 Other technologies:
                 <img src="https://www.gstatic.com/devrel-devsite/prod/vc5df62aff689c916c31b2ac1e49a7e8c5ecada1bb13dcdd68aaefb1e1e9b9ec0/tensorflow/images/favicon.png" alt="tensorflow"/>
             </li>
-        </ul>
+            </ul>
+        </div>
     </section>
     <section class="experience">
         <h2>Experience</h2>
