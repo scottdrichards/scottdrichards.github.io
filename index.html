@@ -54,6 +54,9 @@
             }
         }
         body.light-mode{
+            .black-image{
+                filter: invert(0);
+            }
             --color-background: rgb(255, 255, 255);
             --color-main: rgb(87 87 87);
             --color-accent: rgb(99 113 195);
@@ -192,24 +195,25 @@
                 width:100%;
                 h2{
                     padding: 5px;
+                    padding-left: 15px;
                     background-color: var(--color-accent);
                     color: var(--color-background);
                 }
             }
             section.introduction{
-                padding: 20px;
                 p{
                     padding: 10px 30px;
                     text-align: justify;
                 }
             }
-            section.technologies{
+            section.technologies, section.projects{
                 .contents{
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: space-around;
                     gap: 10px;
-                    padding: 10px;
+                    row-gap: 20px;
+                    padding: 20px;
                     &>div{
                         h3{
                             background-color: var(--color-accent);
@@ -220,33 +224,50 @@
                         overflow:hidden;
                         border:thin solid var(--color-accent);
                         border-radius: 10px;
-                        &>div {
-                            width: 200px;
-                            padding:10px;
-                            &>div{
-                                display: flex;
-                                align-items: center;
-                                justify-content: space-between;
-                                gap: 5px;
+                        .star-grid{
+                            display: grid;
+                            grid-template-columns: auto 1fr auto;
+                            align-items: center;
+                            gap: 5px;
+                            padding: 10px;
+                            .item{
+                                display: grid;
+                                grid-column-start: 1;
+                                grid-column-end: 4;
+                                grid-template-columns: subgrid;
+                                font-size: 20px;
+                                &>img{
+                                    height: 30px;
+                                    grid-column: 1;                                    
+                                }
+                                .name{
+                                    grid-column: 2;
+                                }
                                 .stars{
-                                    font-size: 20px;
-                                    width: 60px;
+                                    grid-column: 3;
                                 }
                             }
-                            .other{
-                                margin-top: 5px;
-                                padding-top: 10px;
-                                border-top: 2px dashed var(--color-accent);
-                                display: flex;
-                                flex-wrap: wrap;
-                                gap: 5px;
-                                justify-content: center;
-                            }
                         }
+                        .other{
+                            grid-column: span 3;
+                            margin-top: 5px;
+                            padding-top: 10px;
+                            border-top: 2px dashed var(--color-accent);
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 5px;
+                            justify-content: center;
+                            width:0;
+                            min-width: 100%;
+                        }
+
                     }
                 }
                 img, svg{
                     height: 30px;
+                    &.img-needs-bkgnd{
+                        background-color: rgb(243, 243, 243); padding:3px; border-radius: 7px; height:24px;
+                    }
                 }
             }
             
@@ -254,6 +275,8 @@
             section.experience{
                 > ul {
                     padding-left: 0px;
+                    display: flex;
+                    flex-wrap: wrap;
                     > li{
                         filter:drop-shadow(0px 0px 3px rgba(0,0,0, 0.8));
 
@@ -283,6 +306,7 @@
                                 font-weight: 700;
                                 font-size: 30px;
                                 padding-left:5px;
+                                padding-right: 30px;
                             }
                             .title{
                                 grid-row: 2;
@@ -293,6 +317,7 @@
                                 padding-left: 7px;
                                 border-top: 5px solid var(--color-accent);
                                 background-color: var(--color-background-darker);
+                                padding-right: 30px;
                             }
 
                             .date{
@@ -310,8 +335,10 @@
                         }
                         .notes{
                             background-color: var(--color-background-darker);
-                            padding: 20px;
-                            padding-left: 35px;
+                            --padding: 20px;
+                            --padding-left: calc(1.5 * var(--padding));
+                            padding: var(--padding);
+                            padding-left: var(--padding-left);
                             padding-top: 20px;
                             img {
                                 max-height: 25px;
@@ -319,12 +346,33 @@
                             li{
                                 margin-bottom: 10px;
                             }
+                            
+                            &.ignore-width{
+                                width:0;
+                                min-width: calc(100% - var(--padding-left) - var(--padding));
+                            }
                         }
                     }
                 }
             }
 
+            section.projects{
+                h3{
+                    font-size: 25px;
+                    padding-left: 15px;
+                }
+                .contents{
+                    display:flex;
+
+                }
+                p{
+                    padding: 10px 30px;
+                    width: 300px;
+                }
+            }
+
         }
+
 
         @property --intensity {
             syntax: '<number>';
@@ -488,55 +536,58 @@
 
             <div>
                 <h3>Languages</h3>
-                <div>
-                    <div>
+                <div class="star-grid">
+                    <div class="item">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg">
-                        Typescript
+                        <span class="name">Typescript</span>
                         <span class="stars">⭐⭐⭐</span> 
                     </div>
-                    <div>
+                    <div class="item">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg">
-                        c/c++
+                        <span class="name">c/c++</span>
                         <span class="stars">⭐⭐</span> 
                     </div>
-                    <div>
+                    <div class="item">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg">
-                        Python
+                        <span class="name">Python</span>
                         <span class="stars">⭐⭐</span> 
                     </div>
-                    <div class="other">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg" alt="C#">
-                        <img src="https://developer.apple.com/assets/elements/icons/swift-playgrounds-mac/swift-playgrounds-mac-96x96_2x.png" alt="Swift">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java">
-                    </div>
+                </div>
+                <div class="other">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg" alt="C#">
+                    <img src="https://developer.apple.com/assets/elements/icons/swift-playgrounds-mac/swift-playgrounds-mac-96x96_2x.png" alt="Swift">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java" class="img-needs-bkgnd">
+                    <span>ASM</span>
                 </div>
             </div>
             <div>
-                <h3>Web Frameworks & Libraries</h3>
-                <div>
-                    <div>
+                <h3>Frameworks & Libraries</h3>
+                <div class="star-grid">
+                    <div class="item">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg">
-                        React
+                        <span class="name">React</span>
                         <span class="stars">⭐⭐⭐</span> 
                     </div>
-                    <div>
+                    <div class="item">
                         <img src="https://angular.dev/assets/icons/favicon.ico" alt="Angular"/>
-                        Angular
+                        <span class="name">Angular</span>
                         <span class="stars">⭐⭐</span> 
                     </div>
-                    <div>
-                        Fluent UI
+                    <div class="item">
+                        <span class="name">Fluent UI</span>
                         <span class="stars">⭐⭐</span> 
                     </div>
                     <div class="other">
                         <img src="https://playwright.dev/img/playwright-logo.svg" alt="playwright"/> 
+                        <img src="https://testing-library.com/img/octopus-64x64.png" alt="React-Testing-Library"/>
+                        <img src="https://jestjs.io/img/favicon/favicon.ico"" alt="Jest"/>
                         <img src="https://upload.wikimedia.org/wikipedia/en/1/15/Logo_D3.svg" alt="d3.js"/>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg" alt="Open Layers"/>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg" alt="Three js" class="black-image"/>
                         <img src="https://rxjs.dev/generated/images/marketing/home/Rx_Logo-512-512.png" alt="RXJS"/>
                         <img src="https://www.mongodb.com/assets/images/global/favicon.ico" alt="MongoDB"/>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GraphQL_Logo.svg" alt="Graphql"/>
-                        <img src="https://testing-library.com/img/octopus-64x64.png" alt="React-Testing-Library"/>
+                        <img src="https://www.gstatic.com/devrel-devsite/prod/vc5df62aff689c916c31b2ac1e49a7e8c5ecada1bb13dcdd68aaefb1e1e9b9ec0/tensorflow/images/favicon.png" alt="tensorflow"/>
                     </div>
                 </div>
             </div>
@@ -544,16 +595,17 @@
                 <h3>
                     Platforms
                 </h3>
-                <div>
+                <div class="contents" style="width:150px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Microsoft Azure"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="Amazon Web Services" class="img-needs-bkgnd"/>  
                     <img src="https://www.docker.com/wp-content/uploads/2024/02/cropped-docker-logo-favicon-32x32.png" alt="Docker"/>
                     <img src="https://www.proxmox.com/favicon.ico" alt="Proxmox"/>
                     <img src="https://c.s-microsoft.com/favicon.ico" alt="Windows"/>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png" alt="Mac" class="black-image"/>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Linux"/>
+                    <img src="https://developer.android.com/static/images/brand/Android_Robot.svg" alt="Android" style="width:28px"/>
         
-                    <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Pi"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Microsoft Azure"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="Amazon Web Services" style="background-color: rgb(243, 243, 243); padding:3px; border-radius: 7px; height:24px"/>   
+                    <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Pi"/> 
                 </div>
             </div>
             <div>
@@ -568,14 +620,12 @@
                         Computer vision, pattern recognition, machine learning, AI, etc.
                         <span class="stars">⭐⭐</span>
                     </li>
-                    <li>The entire network stack</li>
+                    <li>
+                        Networking
+                        <span class="stars">⭐⭐</span>
+                    </li>
                 </ul>
-            </div> 
-            <li>
-                Other technologies:
-                <img src="https://www.gstatic.com/devrel-devsite/prod/vc5df62aff689c916c31b2ac1e49a7e8c5ecada1bb13dcdd68aaefb1e1e9b9ec0/tensorflow/images/favicon.png" alt="tensorflow"/>
-            </li>
-            </ul>
+            </div>
         </div>
     </section>
     <section class="experience">
@@ -592,49 +642,29 @@
                     </div>
                 </div>
                 <div class="notes">
-                    As part of the Dynamics 365 Mixed-Reality team, I help support HoloLens, mobile, desktop, and web apps surrounding Dynamics 365 <a href="https://www.bing.com/search?q=dynamics+guides&cvid=b742430d520f45fcaaf6f2551e62db57&gs_lcrp=EgZjaHJvbWUqBggAEAAYQDIGCAAQABhAMgYIARAAGEAyBggCEAAYQDIGCAMQABhAMgYIBBBFGEEyBggFEEUYPDIGCAYQRRg8MgYIBxBFGEEyBggIEEUYQTIICAkQ6QcY_FXSAQgzMzAyajBqNKgCCLACAQ&FORM=ANAB01&PC=U531">Guides</a> and <a href="https://dynamics.microsoft.com/en-us/mixed-reality/remote-assist/">Remote Assist</a>. I am the UI expert for the services scrum and one of a few web experts on the team. I worked extensively in Typescript <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg/2560px-Typescript.svg.png" alt="" style="height:15px;"/> and 
+                    <p>As part of the Dynamics 365 Mixed-Reality team, I supported Dynamics 365 <a href="https://www.bing.com/search?q=dynamics+guides&cvid=b742430d520f45fcaaf6f2551e62db57&gs_lcrp=EgZjaHJvbWUqBggAEAAYQDIGCAAQABhAMgYIARAAGEAyBggCEAAYQDIGCAMQABhAMgYIBBBFGEEyBggFEEUYPDIGCAYQRRg8MgYIBxBFGEEyBggIEEUYQTIICAkQ6QcY_FXSAQgzMzAyajBqNKgCCLACAQ&FORM=ANAB01&PC=U531">Guides</a> and <a href="https://dynamics.microsoft.com/en-us/mixed-reality/remote-assist/">Remote Assist</a>. I am the UI expert for the services scrum and one of a few web experts on the team. I worked extensively in Typescript <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg/2560px-Typescript.svg.png" alt="" style="height:15px;"/> and a smattering of other languages to maintain and update the applications which run on a variety of devices (iOS, Android, Windows, HoloLens, PowerApps, etc.).</p>
+                    <p>Notable contributions:</p>
                     <ul >
                         <li>
-                            Helped port <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-mobile-all#use-teams-mobile-to-annotate-in-a-users-environment-preview">mixed-reality functionality to Teams mobile</a> on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png" alt="iOS" class="black-image"/> and <img src="https://developer.android.com/static/images/brand/Android_Robot.svg" alt="Android" style="width:28px"/>. Implemented tracking-lost detection and warnings and various UI improvements.
+                            Took ownership of a <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-pc-all#add-annotations-in-the-dynamics-365-remote-assist-users-environment">Teams feature</a> and brought it to general availability. As Teams has over 270 million users and the code runs on every single meeting, this was a significant milestone and required extensive testing and coordination. Oversaw the migration of the feature from Teams 1.0 to Teams 2.0. Migrated the feature to Fluent UI v9. Optimized a codeblock that caused a slight delay an an <i>extremely</i> hot path. Updated the bitwise protocol to accept an updated message format. Became the team's "security champ" trained to triage and identify potential issues.
                         </li>
                         <li>
-                            With two others, ran <a href="https://blogs.microsoft.com/blog/2023/01/04/the-future-of-mobility-is-now-five-themes-to-watch-at-ces-2023/#:~:text=With%20HoloLens%202%20and%20Dynamics%20365%20Guides,or%20IT%20skills">a demonstration booth</a> at <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Logo_of_Consumer_Electronics_Show.svg" alt="CES"/>. As the sole engineer demonstrator, was instrumental in debugging and maintaining the devices and giving technical explanations to visitors.
+                           Represented our products at <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Logo_of_Consumer_Electronics_Show.svg" alt="CES"/>. As the sole engineer of the team, was instrumental in debugging and maintaining the devices and giving technical explanations to visitors while delivering hundreds of demonstrations.
                         </li>
                         <li>
-                            Assumed long-term ownership of a customer issue that had been bounced around between multiple on-call shifts. Created a home-lab setup to enulate the client's proxy settings and identified an OS bug ignoring proxy configurations. Worked with the customer and the OS team to obtain logs and a fix.
+                            As part of on-call responsibilities, assumed long-term ownership of a customer issue that had been bounced around between multiple on-call shifts. Created a home-lab setup to enulate the client's proxy settings and identified an OS bug ignoring proxy configurations. Worked with the customer and the OS team to obtain logs and a fix.
                         </li>
                         <li>
-                            As the group's UI expert, migrated multiple features to Fluent UI v9.
+                            Implemented a <a href="https://mixedreality.dynamics.com/otc?d=1&correlationId=074349bc-97a0-475d-ac87-f633e77810ed">website to download and launch</a> Remote Assist Mobile and related <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/one-time-call#before-selecting-create-a-one-time-call-link-in-the-model-driven-app">link generation UI</a>. Also implemented a usage dashboard for customers.
                         </li>
                         <li>
-                            Implemented a <a href="https://mixedreality.dynamics.com/otc?d=1&correlationId=074349bc-97a0-475d-ac87-f633e77810ed">website to download and launch</a> Remote Assist Mobile. Designed a url scheme to open the app if installed or guide the user to download it.
+                            Designed and <b>lead a hackathon project</b> with two others to enable an administrator to see a dynamic 3D rendering of multiple HoloLens user's locations, environments, and spatial information. 
                         </li>
                         <li>
-                            Implemented various "PCF controls" which are mini webpages for single features in the Power Apps platform. For example a <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/one-time-call#before-selecting-create-a-one-time-call-link-in-the-model-driven-app">link generation UI</a>, 
+                            Updated or added testing in multiple projects using React-Testing-Library <img src="https://testing-library.com/img/octopus-64x64.png" alt="(RTL)"/> and Playwright<img src="https://playwright.dev/img/playwright-logo.svg" alt=""/>.
                         </li>
                         <li>
-                            Designed and lead a hackathon project with two others to enable an administrator to see a dynamic 3D rendering of multiple HoloLens user's locations, environments, and spatial information. <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Three.js_Icon.svg/2560px-Three.js_Icon.svg.png" alt="Three.js" class="black-image"/>
-                        </li>
-                        <li>
-                            Added UI and accessibility testing via Playwright<img src="https://playwright.dev/img/playwright-logo.svg" alt=""/> to multiple projects that lacked adequate UI testing.
-                        </li>
-                        <li>
-                            Migrated away from snapshot testing to semantic-based React-Testing-Library <img src="https://testing-library.com/img/octopus-64x64.png" alt="(RTL)"/> for less brittle testing.
-                        </li>
-                        <li>
-                            Recreated a dashboard that was compliant, accessible, performant (1-day updates to immediate), and with expanded filtering.
-                        </li>
-                        <li>
-                            Took ownership of a <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-pc-all#add-annotations-in-the-dynamics-365-remote-assist-users-environment">Teams feature</a> and brought it to general availability. As Teams has over 270 million users and the code runs on every single meeting, this was a significant milestone and required extensive testing and coordination. Oversaw the migration of the feature from Teams 1.0 to Teams 2.0. Migrated the feature to Fluent UI v9. Optimized a codeblock that caused a slight delay an an <i>extremely</i> hot path. Updated the bitwise protocol to accept an updated message format.
-                        </li>
-                        <li>
-                            Interviewed prospective candidates to join the team.
-                        </li>
-                        <li>
-                            Mentored a summer associate who then joined the team.
-                        </li>
-                        <li>
-                            Was the "security champ," trained to triage and identify potential security issues for the team. Received invaluable training about best practices during the <a href="https://msrc.microsoft.com/blog/2024/01/microsoft-actions-following-attack-by-nation-state-actor-midnight-blizzard/">Midnight Blizzard attack</a>.
+                            Mentored a summer associate who then joined the team and was an interviewer for another open position.
                         </li>
                     </ul>
                 </div>
@@ -649,27 +679,30 @@
                         <span>2024</span>
                     </div>
                 </div>
-                <div class="notes">
-
+                <div class="notes ignore-width">
+                    Focused on embedded systems, networking, and image processing. Finished coursework in 2022 and completed captstone project in 2024 while employed at Microsoft.
                 </div>
             </li>
             <li>
                 <div class="header">
                     <div class="logo"><img src="https://www.psu.edu/favicon.ico"/></div>                    
-                    <h3 class="location">PSU: Applied Research Lab</h3>
+                    <h3 class="location">Applied Research Lab</h3>
                     <span class="title">Graduate Assistant</span>
                     <div class="date">
                         <span>2020</span>
                         <span>2022</span>
                     </div>
                 </div>
-                <div class="notes">
-
+                <div class="notes ignore-width">
+                    <ul>
+                    <li>Investigated anomoly detection in synthetic aperture radar imagery using auto-encoders and other AI/image processing techniques </li>
+                    <li>Developed a mapping system to represent assets overlaid on a street map.</li>
+                    </ul>
                 </div>
             </li>
             <li>
                 <div class="header">
-                    <div class="logo"><img src="https://www.psu.edu/favicon.ico"/></div>                    
+                    <div class="logo"><img src="https://www.hoganlovells.com/-/media/themes/hoganlovells/site-theme-name/images/common/hogan-lovells-logo.png?h=76&iar=0&w=76&hash=5AD2BE08383FDA3D743A0D71537EA21C"/></div>                    
                     <h3 class="location">Hogan Lovells</h3>
                     <span class="title">Patent Agent</span>
                     <div class="date">
@@ -677,8 +710,8 @@
                         <span>2020</span>
                     </div>
                 </div>
-                <div class="notes">
-
+                <div class="notes ignore-width">
+                    Focused on cloud and networking, primarily with Amazon as a client.
                 </div>
             </li>
             <li>
@@ -688,45 +721,36 @@
                     <span class="title">Associate</span>
                     <div class="date">
                         <span>2014</span>
-                        <span>2027</span>
+                        <span>2017</span>
                     </div>
                 </div>
-                <div class="notes">
-
+                <div class="notes ignore-width">
+                    Focused on cloud, netwworking, IoT with Dropbox and Cisco as primary clients. Secundment at Dropbox for 6 months.
                 </div>
             </li>
             <li>
-                <h3>
-                    <img src="https://www.hoganlovells.com/i/-/media/themes/hoganlovells/site-theme/name/images/common/logo.png>
-                    <span class="location">Hogan Lovells Patent Agent </h3><div></div>2017" date-end="2019"">
-                    hello world
+                <div class="header">
+                    <div class="logo"><img src="https://brand.utah.edu/wp-content/uploads/sites/69/2022/02/BlockU_redweb.png"/></div>                    
+                    <h3 class="location">University of Utah</h3>
+                    <span class="title">Juris Doctor</span>
+                    <div class="date">
+                        <span>2011</span>
+                        <span>2014</span>
+                    </div>
+                </div>
             </li>
             <li>
-                <h3>
-                    <img src="https://www.polsinelli.com/assets/favicon.ico"/>
-                    <span class="location">Polsinelli Associate </h3><div></div>2014" date-end="2017"
-                    hello world
-            </li>
-            <li>
-                <h3>
-                    <img src="https://cfl.dropboxstatic.com/static/metaserver/static/images/favicon.ico"/>
-                    <span class="location">Dropbox Secondee </h3><div></div>2015" date-end="2016"
-                    hello world
-            </li>
-            <li>
-                <h3>
-                    <img src="//templates.utah.edu/_main-v3-1/images/template/favicon.ico"/>
-                    <span class="location">University of Utah Juris Doctorate </h3><div></div>2011" date-end="2014"
-                    hello world
-            </li>
-            <li>
-                <h3>
-                    <img src="https://byu.edu/favicon.ico" is-education/>
-                    <span class="location">Brigham Young University BS Economics, minors in CS and Physics </h3><div></div>2005" date-end="2011"
-                    hello world
+                <div class="header">
+                    <div class="logo"><img src="https://content.sportslogos.net/logos/30/622/full/brigham_young_cougars_logo_secondary_20165329.png"/></div>                    
+                    <h3 class="location">Brigham Young University</h3>
+                    <span class="title">BS Economics, Minors CS & Physics</span>
+                    <div class="date">
+                        <span>2005</span>
+                        <span>2011</span>
+                    </div>
+                </div>
             </li>
         </ul>
     </section>
-
 </body>
 </html>
