@@ -1,645 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script>     
-       document.addEventListener('DOMContentLoaded', () => {
-
-            const dropShadowElements = document.querySelectorAll('.drop-shadow');
-
-            document.querySelectorAll(".light-fun").forEach(flashlightCanvas=>{
-                const updateFlashlight = (e)=>{
-                    const scrollX = window.scrollX || window.pageXOffset;
-                    const scrollY = window.scrollY || window.pageYOffset;
-                    flashlightCanvas.style.setProperty('--light-x', e.clientX - flashlightCanvas.offsetLeft + scrollX);
-                    flashlightCanvas.style.setProperty('--light-y', e.clientY - flashlightCanvas.offsetTop + scrollY);
-                    // Disable CSS transition
-                    flashlightCanvas.style.transition = "none";
-                }
-                flashlightCanvas.addEventListener('mousemove', updateFlashlight);
-
-                const {width, height} = flashlightCanvas.getBoundingClientRect();
-                const centerFlashlight = ()=>{
-                    flashlightCanvas.style.setProperty('--light-x', 100 + width/2);
-                    flashlightCanvas.style.setProperty('--light-y', height/2-100);
-                    // Use CSS transition
-                    flashlightCanvas.style.transition = "";
-                }
-                
-                flashlightCanvas.addEventListener('mouseleave', centerFlashlight);
-                centerFlashlight();
-            });
-
-            // Set the local x and y for drop shadows.
-            document.querySelectorAll('.drop-shadow').forEach(el => {
-                const {left, top, width, height} = el.getBoundingClientRect();
-                el.style.setProperty('--relative-x', left + width / 2);
-                el.style.setProperty('--relative-y', top + height / 2);
-            })
-       });
-
-
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
- 
-/* 
-        @property --dark-mode-transition {
-            syntax: '<percentage>';
-            inherits: true;
-            initial-value: 100%;
-        }
-         */
-        body {
-            --dark-mode-transition: 0.5s;
-            --color-background-darker: color-mix(in hsl, var(--color-background), black 10%);
-            /* CSS Reset */
-            &, h1,h2,h3,h4 {
-                margin: 0;
-            }
-
-            /* Themeing */
-            .black-image{
-                filter: invert(0);
-            }
-            
-            --subtle-drop-shadow: drop-shadow(0px 0px 3px rgba(0,0,0, 0.4));
-            --color-background: rgb(255, 255, 255);
-            --color-main: rgb(87 87 87);
-            --color-accent: rgb(99 113 195);
-
-            transition: background-color 0.3s, color 0.2s;
-            &:has(#theme-switch-input:checked){
-                --color-background: rgb(65, 65, 65);
-                --color-main: rgb(239, 239, 239);
-                --color-accent: rgb(83, 158, 233);
-                
-                --subtle-drop-shadow: drop-shadow(0px 0px 3px rgba(0,0,0, 0.8));
-
-                .black-image{
-                    filter: invert(1);
-                }
-            }
-
-
-
-            --border-thickness: 3px;
-
-            --drop-shadow-x: 4px;
-            --drop-shadow-y: 6px;
-            --drop-shadow-blur: 10px;
-
-            a, a:visited {
-                color: var(--color-accent);
-                text-decoration: none;
-            }
-
-            background-color: var(--color-background);
-            color: var(--color-main);
-            font-family: "Open Sans", sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            filter: blur(0.5px);
-
-            .switch {
-                height: 100px;
-                position: fixed;
-                right: 20px;
-                top: 20px;
-                z-index: 100;
-                input {
-                    display:none;
-                }
-                
-                input:checked + .theme-switch .slider {
-                    background-color: #2b2b2b;
-                    &::before{
-                        transform: translateX(26px);
-                    }
-                }
-
-                .theme-switch {
-                    display: inline-block;
-                    height: 34px;
-                    position: relative;
-                    width: 60px;
-                    .slider {
-                        background-color: #ccc;
-                        bottom: 0;
-                        cursor: pointer;
-                        left: 0;
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        transition: .4s;                    
-                        border-radius: 34px;
-                        &:before {
-                            border-radius: 50%;
-                            background-color: #fff;
-                            bottom: 4px;
-                            content: "";
-                            height: 26px;
-                            left: 4px;
-                            position: absolute;
-                            transition: .4s;
-                            width: 26px;
-                        }
-                    }
-                }
-            }
-
-
-
-            .main-header{
-                position: relative;
-                display: grid;
-                overflow:hidden;
-                grid-template-columns: 1fr auto 1fr;
-                width:100%;
-                padding-bottom: 50px;
-                
-                .card-centering-container{
-                    display: grid;
-                    grid-template-columns: 1fr auto 1fr;
-                    grid-template-rows: 1fr auto 1fr;
-                    *{
-                        grid-area: 2/2;
-                    }
-                }
-
-                .card{
-                    background-color: var(--color-background-darker);
-                    padding:15px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    /* border: var(--border-thickness) solid var(--color-accent); */
-                    border-radius: 10px;
-                }
-
-                .portrait {
-                    --width: 200px;
-                    --height: calc(var(--width) * 1.25);
-                    height: var(--height);
-                    width: var(--width);
-                    overflow: hidden;
-                    position: relative;
-                    margin: 30px;
-    
-                    &::before {
-                        content: "";
-                        display: block;
-                        position: absolute;
-                        bottom: 0;
-                        z-index: -1;
-                        width: var(--width);
-                        height: var(--width);
-                        background-color: var(--color-accent);
-                        border-radius: calc(var(--width) / 2);
-                    }
-                    img {
-                        height: calc( var(--height) - (2 * var(--border-thickness)));
-                        width: calc( var(--width) - (2 * var(--border-thickness)));
-                        margin: var(--border-thickness);
-                        position: absolute;
-                        bottom:var(--padding);
-                        object-fit: cover;
-                        --img-border-radius: calc((var(--width) / 2) - var(--border-thickness));
-                        border-bottom-left-radius: var(--img-border-radius);
-                        border-bottom-right-radius: var(--img-border-radius);
-    
-                    }
-                }
-                .name {
-                    display: flex;
-                    justify-content: center;
-                    font-weight: 700;
-                    padding: 0 8px;
-                    span{
-                        &:first-of-type{
-                            font-weight: 100;
-                            margin-right: 10px;
-                        }
-                    }
-                }
-                .social-links.card{
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    a {
-                        --size : 50px;
-                        margin: 10px;
-                        height: var(--size);
-                        width: var(--size);
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        > * {
-                            height: 90%;
-                            width: 90%;
-                            transition: height 0.1s, width 0.1s;
-                        }
-                        &:hover {
-                            > * {
-                                height: 100%;
-                                width: 100%;
-                            }
-                        }
-                    }
-                }
-            }
-            section{
-                width:100%;
-                h2{
-                    padding: 5px;
-                    padding-left: 15px;
-                    background-color: var(--color-accent);
-                    color: var(--color-background);
-                }
-            }
-            section.introduction{
-                p{
-                    padding: 10px 30px;
-                    text-align: justify;
-                }
-            }
-            section.technologies, section.projects{
-                .contents{
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-around;
-                    gap: 10px;
-                    row-gap: 20px;
-                    padding: 20px;
-                    &>div{
-                        h3{
-                            background-color: var(--color-accent);
-                            padding:0 5px;
-                            font-weight: 300;
-                            color: var(--color-background)
-                        }
-                        overflow:hidden;
-                        border:thin solid var(--color-accent);
-                        border-radius: 10px;
-                        .star-grid{
-                            display: grid;
-                            grid-template-columns: auto 1fr auto;
-                            align-items: center;
-                            gap: 5px;
-                            padding: 10px;
-                            .item{
-                                display: grid;
-                                grid-column-start: 1;
-                                grid-column-end: 4;
-                                grid-template-columns: subgrid;
-                                font-size: 20px;
-                                &>img{
-                                    height: 30px;
-                                    grid-column: 1;                                    
-                                }
-                                .name{
-                                    grid-column: 2;
-                                }
-                                .stars{
-                                    grid-column: 3;
-                                }
-                            }
-                        }
-                        .other{
-                            grid-column: span 3;
-                            margin-top: 5px;
-                            padding-top: 10px;
-                            border-top: 2px dashed var(--color-accent);
-                            display: flex;
-                            flex-wrap: wrap;
-                            gap: 5px;
-                            justify-content: center;
-                            width:0;
-                            min-width: 100%;
-                        }
-
-                    }
-                }
-                img, svg{
-                    height: 30px;
-                    &.img-needs-bkgnd{
-                        background-color: rgb(243, 243, 243); padding:3px; border-radius: 7px; height:24px;
-                    }
-                }
-            }
-            
-
-            section.experience{
-                > ul {
-                    padding-left: 0px;
-                    display: flex;
-                    flex-wrap: wrap;
-                    > li{
-                        filter:var(--subtle-drop-shadow);
-
-                        list-style: none;
-                        padding: 30px;
-                        width: 100%;
-                        
-                        .header{
-                            display:grid;
-                            grid-template-columns: auto 1fr auto;
-                            grid-template-rows: auto auto;
-                            justify-content: space-between;
-                            align-items: end;
-                            .logo{
-                                grid-area: 1 / 1 / 3 / 2;
-                                width: 60px;
-                                img{
-                                    width: 100%;
-                                    aspect-ratio: 1;
-                                }
-                                background-color: var(--color-background-darker);
-                                border: 3px solid var(--color-background-darker)     ;
-                                border-right: 0;                               
-                            }
-                            .location{
-                                display: inline-block;
-                                grid-area: 1 / 2 / 1 / 2;
-                                font-weight: 700;
-                                font-size: 30px;
-                                padding-left:5px;
-                                padding-right: 30px;
-                            }
-                            .title{
-                                grid-row: 2;
-                                grid-column: 2 / 4;
-                                font-size: 20px;
-                                font-weight: 600;
-                                color: var(--color-accent);
-                                padding-left: 7px;
-                                border-top: 5px solid var(--color-accent);
-                                background-color: var(--color-background-darker);
-                                padding-right: 30px;
-                            }
-
-                            .date{
-                                font-size: 20px;
-                                font-weight: 600;
-                                text-align: right;
-                                align-self: flex-end;
-                                color: var(--color-accent);
-                                & > *:first-child{
-                                    &::after{
-                                        content: " - ";
-                                    }
-                                }
-                            }
-                        }
-                        .notes{
-                            background-color: var(--color-background-darker);
-                            --padding: 20px;
-                            --padding-left: calc(1.5 * var(--padding));
-                            padding: var(--padding);
-                            padding-left: var(--padding-left);
-                            padding-top: 20px;
-                            img {
-                                max-height: 25px;
-                            }
-                            li{
-                                margin-bottom: 10px;
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-
-
-        @property --intensity {
-            syntax: '<number>';
-            inherits: true;
-            initial-value: 1;
-        }
-        
-        @keyframes flicker{
-            0%{--intensity: 8;}
-            20%{--intensity: .94;}
-            30%{--intensity: .86;}
-            50%{--intensity: 1;}
-            70%{--intensity: 0.96;}
-            80%{--intensity: 0.84;}
-            100%{--intensity: 0.8;}
-        }       
-
-        @property --light-x {
-            syntax: '<number>';
-            inherits: true;
-            initial-value: 0;
-        }
-        @property --light-y {
-            syntax: '<number>';
-            inherits: true;
-            initial-value: 0;
-        }
-
-        .light-fun{
-            --light-x-px: calc(1px * var(--light-x));
-            --light-y-px: calc(1px * var(--light-y));
-            animation: flicker 1s infinite cubic-bezier(0.5, 0, 0.5, 1);
-            --transition-duration: 0.25s;
-            transition: --light-x var(--transition-duration) linear, --light-y var(--transition-duration) linear;
-            .light{
-                pointer-events: none;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                z-index: 1;
-                .filter{
-                    mix-blend-mode: multiply;
-                    position: absolute;
-                    width: 100%; 
-                    height: 100%;
-                    opacity: 1;
-                    --shadow-color: rgb(black);
-                    
-                    background-image: radial-gradient(
-                        circle at var(--light-x-px) var(--light-y-px),
-                        rgba(0, 0, 0, calc(0.05 * calc(1 - var(--intensity)))) 0px,
-                        var(--shadow-color) 1500px);
-
-                        
-                    --grain-image: url(data:image/png;base64,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);
-
-                    &::before{
-                        content: "";
-                        position: absolute;
-                        width: 200%;
-                        height: 100%;
-                        background-image: var(--grain-image);
-                        opacity: 0.5;
-                    }
-                    &::after{
-                        content: "";
-                        position: absolute;
-                        width: 200%;
-                        height: 100%;
-                        background-image: var(--grain-image);
-                        background-size: contain;
-                        opacity: 0.1;
-                    }
-                }
-            }
-                
-            .drop-shadow {
-                --relative-x: 10;
-                --relative-y: 10;
-
-                --light-dx: calc(var(--light-x) - var(--relative-x));
-                --light-dy: calc(var(--light-y) - var(--relative-y));
-
-                --light-distance: calc(
-                    sqrt(
-                        var(--light-dx) * var(--light-dx) +
-                        var(--light-dy) * var(--light-dy)
-                    )
-                );
-
-                filter: drop-shadow(
-                    calc(1px * var(--light-dx)/-8) calc(1px*var(--light-dy)/-8)
-                    calc(1px * var(--light-distance)/50)
-                    rgba(0, 0, 0, 0.5));
-            }
-        }
-
-
-    </style>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Scott Richards</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='index.css'>
+    <script src='main.js'></script>
 </head>
 <body>
-    <div class="switch">
-        <input type="checkbox" id="theme-switch-input" checked/>
-        <label class="theme-switch" for="theme-switch-input">
-            <div class="slider"></div>
-        </label>
-    </div>
-    <div class="main-header light-fun">
-        <div class="light">
-            <div class="filter" aria-hidden="true"></div>
+    <section class="summary">
+        <div class="name-portrait">
+            <div class="portrait"><img src="/media/portrait.png"/></div>
+            <h1>Scott<br/>Richards</h1>
+            <p>Software Engineer</p>
         </div>
-        <div class="card-centering-container">
-            <div class="contact-info card drop-shadow">
-                <a href="tel:3523288341">
-                    352.328.8341
-                </a>
-                <a href="mailto:scottdrichards@gmail.com">
-                    scottdrichards@gmail.com
-                </a>
-                <span>
-                    Atlanta, GA
-                </span>
-            </div>
+        <div class="about-me">
+            <p>Whether I'm representing Microsoft at CES, mentoring new hires, refactoring old code, or launching new features I strive to <b>work with people in mind</b>. This requires effective communication and collaboration with colleagues and users to ensure we all succeed together.</p>
+            <p>I have focused on <b>user interface</b> development, creating sites, pages, and features using <b>React</b> including a significant amount of work within the <b>Teams</b> codebase.</p>
+            <p>My unique background of having five years as a <b>patent attorney</b> gave me experience in working with complex ideas and translating them to various audiences.</p>
         </div>
-        <div>
-            <div class="portrait drop-shadow">
-                <img src="/portrait.png" alt="portrait" />
-            </div>
-            <h1 class="name drop-shadow">
-                <span>Scott</span><span>Richards</span>
-            </h1>
-        </div>
-        <div class="card-centering-container">
-            <div class="social-links card drop-shadow">
-                <a href="https://www.linkedin.com/in/scottdrichards">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
-                        <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-                    </svg>
-                </a>
-            <a href="https://github.com/scottdrichards">
-                <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" fill="currentColor">
-                    <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
-                </svg>
-            </a>
-        </div>
-        </div>
-    </div>
-    <section class="introduction">
-        <h2>About Me</h2>
-        <p>
-            After five years as a <b>patent attorney</b> working with inventors at top tech companies, I decided to merge my maker passions and my gained technical knowledge and continue my career as an engineer. I went back to school to get a <b>Masters in Computer Science and Engineering</b>.
-        </p>
-        <p>
-            I joined Microsoft in 2022 as part of the Dynamics 365 <b>Mixed Reality</b> backend services team supporting Guides and Remote Assist applications. As the services team's <b>front end expert</b>, I have been instrumental a variety of user-facing tasks including ownership of a significant Teams feature. 
-        </p>
-        <p>
-            With my diverse background, I have experience with a wide range of technologies and concepts. I am a <b>quick learner</b> and a communicator that thrives in a <b>collaborative</b> environment. I am excited to grow in my next role.
-        </p>
-    </section>
-    <section class="technologies">
-        <h2>Technologies</h2>
-        <div class="contents">
-
-            <div>
-                <h3>Languages</h3>
-                <div class="star-grid">
-                    <div class="item">
+        <div class="technologies">
+            <h2>Technologies</h2>
+            <div class="flex">
+                <div class="stargrid">
+                    <div>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg">
                         <span class="name">Typescript</span>
-                        <span class="stars">⭐⭐⭐</span> 
+                        <span class="stars">★★★</span> 
                     </div>
-                    <div class="item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg">
-                        <span class="name">c/c++</span>
-                        <span class="stars">⭐⭐</span> 
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="">
+                        <span>C++</span>
+                        <span class="stars">★★</span>
                     </div>
-                    <div class="item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg">
-                        <span class="name">Python</span>
-                        <span class="stars">⭐⭐</span> 
-                    </div>
-                </div>
-                <div class="other">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg" alt="C#">
-                    <img src="https://developer.apple.com/assets/elements/icons/swift-playgrounds-mac/swift-playgrounds-mac-96x96_2x.png" alt="Swift">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java" class="img-needs-bkgnd">
-                    <span>ASM</span>
-                </div>
-            </div>
-            <div>
-                <h3>Frameworks & Libraries</h3>
-                <div class="star-grid">
-                    <div class="item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg">
-                        <span class="name">React</span>
-                        <span class="stars">⭐⭐⭐</span> 
-                    </div>
-                    <div class="item">
-                        <img src="https://angular.dev/assets/icons/favicon.ico" alt="Angular"/>
-                        <span class="name">Angular</span>
-                        <span class="stars">⭐⭐</span> 
-                    </div>
-                    <div class="item">
-                        <span class="name">Fluent UI</span>
-                        <span class="stars">⭐⭐</span> 
-                    </div>
-                    <div class="other">
-                        <img src="https://playwright.dev/img/playwright-logo.svg" alt="playwright"/> 
-                        <img src="https://testing-library.com/img/octopus-64x64.png" alt="React-Testing-Library"/>
-                        <img src="https://jestjs.io/img/favicon/favicon.ico"" alt="Jest"/>
-                        <img src="https://upload.wikimedia.org/wikipedia/en/1/15/Logo_D3.svg" alt="d3.js"/>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg" alt="Open Layers"/>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg" alt="Three js" class="black-image"/>
-                        <img src="https://rxjs.dev/generated/images/marketing/home/Rx_Logo-512-512.png" alt="RXJS"/>
-                        <img src="https://www.mongodb.com/assets/images/global/favicon.ico" alt="MongoDB"/>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GraphQL_Logo.svg" alt="Graphql"/>
-                        <img src="https://www.gstatic.com/devrel-devsite/prod/vc5df62aff689c916c31b2ac1e49a7e8c5ecada1bb13dcdd68aaefb1e1e9b9ec0/tensorflow/images/favicon.png" alt="tensorflow"/>
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="">
+                        <span>Python</span>
+                        <span class="stars">★★</span>
                     </div>
                 </div>
-            </div>
-            <div>
-                <h3>
-                    Platforms
-                </h3>
-                <div class="contents" style="width:150px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt="Microsoft Azure"/>
+                <div class="stargrid">
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg" alt="">
+                        <span>React</span>
+                        <span class="stars">★★★</span>
+                    </div>
+                    <div>
+                        <img src="https://angular.dev/assets/icons/favicon.ico" alt=""/>
+                        <span>Angular</span>
+                        <span class="stars">★★</span>
+                    </div>
+                    <div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt=""/>
+                        <span>Azure</span>
+                        <span class="stars">★★</span>
+                    </div>
+                </div>
+                <div class="also">
+                    <img src="https://playwright.dev/img/playwright-logo.svg" alt="playwright"/> 
+                    <img src="https://testing-library.com/img/octopus-64x64.png" alt="React-Testing-Library"/>
+                    <img src="https://jestjs.io/img/favicon/favicon.ico"" alt="Jest"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/1/15/Logo_D3.svg" alt="d3.js"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg" alt="Open Layers"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg" alt="Three js" class="black-image"/>
+                    <img src="https://rxjs.dev/generated/images/marketing/home/Rx_Logo-512-512.png" alt="RXJS"/>
+                    <img src="https://www.mongodb.com/assets/images/global/favicon.ico" alt="MongoDB"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GraphQL_Logo.svg" alt="Graphql"/>
+                    <img src="https://www.gstatic.com/devrel-devsite/prod/vc5df62aff689c916c31b2ac1e49a7e8c5ecada1bb13dcdd68aaefb1e1e9b9ec0/tensorflow/images/favicon.png" alt="tensorflow"/>
+
                     <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="Amazon Web Services" class="img-needs-bkgnd"/>  
                     <img src="https://www.docker.com/wp-content/uploads/2024/02/cropped-docker-logo-favicon-32x32.png" alt="Docker"/>
                     <img src="https://www.proxmox.com/favicon.ico" alt="Proxmox"/>
@@ -651,149 +80,85 @@
                     <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Pi"/> 
                 </div>
             </div>
+        </div>
+        <div>
+            <h2>Hobbies</h2>
+        </div>
+        <div class="contact">
             <div>
-                <h3>Concepts</h3>
-                <ul>
-                    <li>
-                        Functional Programming and OOP
-                        <span class="stars">⭐⭐⭐</span>
-                    </li>
-    
-                    <li>
-                        Computer vision, pattern recognition, machine learning, AI, etc.
-                        <span class="stars">⭐⭐</span>
-                    </li>
-                    <li>
-                        Networking
-                        <span class="stars">⭐⭐</span>
-                    </li>
-                </ul>
+                <div class="icon">☎</div>
+                352.328.8341
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="icon">
+                    <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+                </svg>
+                linkedin.com/in/scottdrichards
+            </div>
+            <div>
+                <div class="icon">@</div>
+                scottdrichards@gmail.com
             </div>
         </div>
     </section>
     <section class="experience">
         <h2>Experience</h2>
-        <ul>
+        <ol>
             <li>
-                <div class="header">
-                    <div class="logo"><img src="https://learn.microsoft.com/favicon.ico"/></div>                    
-                    <h3 class="location">Microsoft</h3>
-                    <span class="title">Engineer</span>
-                    <div class="date">
-                        <span>2022</span>
-                        <span>Present</span>
-                    </div>
-                </div>
-                <div class="notes">
-                    <p>As part of the Dynamics 365 Mixed-Reality team, I supported Dynamics 365 <a href="https://www.bing.com/search?q=dynamics+guides&cvid=b742430d520f45fcaaf6f2551e62db57&gs_lcrp=EgZjaHJvbWUqBggAEAAYQDIGCAAQABhAMgYIARAAGEAyBggCEAAYQDIGCAMQABhAMgYIBBBFGEEyBggFEEUYPDIGCAYQRRg8MgYIBxBFGEEyBggIEEUYQTIICAkQ6QcY_FXSAQgzMzAyajBqNKgCCLACAQ&FORM=ANAB01&PC=U531">Guides</a> and <a href="https://dynamics.microsoft.com/en-us/mixed-reality/remote-assist/">Remote Assist</a>. I am the UI expert for the services scrum and one of a few web experts on the team. I worked extensively in Typescript <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg/2560px-Typescript.svg.png" alt="" style="height:15px;"/> and a smattering of other languages to maintain and update the applications which run on a variety of devices (iOS, Android, Windows, HoloLens, PowerApps, etc.).</p>
-                    <p>Notable contributions:</p>
-                    <ul >
-                        <li>
-                            Took ownership of a <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-pc-all#add-annotations-in-the-dynamics-365-remote-assist-users-environment">Teams feature</a> and brought it to general availability. As Teams has over 270 million users and the code runs on every single meeting, this was a significant milestone and required extensive testing and coordination. Oversaw the migration of the feature from Teams 1.0 to Teams 2.0. Migrated the feature to Fluent UI v9. Optimized a codeblock that caused a slight delay an an <i>extremely</i> hot path. Updated the bitwise protocol to accept an updated message format. Became the team's "security champ" trained to triage and identify potential issues.
-                        </li>
-                        <li>
-                           Represented our products at <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Logo_of_Consumer_Electronics_Show.svg" alt="CES"/>. As the sole engineer of the team, was instrumental in debugging and maintaining the devices and giving technical explanations to visitors while delivering hundreds of demonstrations.
-                        </li>
-                        <li>
-                            As part of on-call responsibilities, assumed long-term ownership of a customer issue that had been bounced around between multiple on-call shifts. Created a home-lab setup to enulate the client's proxy settings and identified an OS bug ignoring proxy configurations. Worked with the customer and the OS team to obtain logs and a fix.
-                        </li>
-                        <li>
-                            Implemented a <a href="https://mixedreality.dynamics.com/otc?d=1&correlationId=074349bc-97a0-475d-ac87-f633e77810ed">website to download and launch</a> Remote Assist Mobile and related <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/one-time-call#before-selecting-create-a-one-time-call-link-in-the-model-driven-app">link generation UI</a>. Also implemented a usage dashboard for customers.
-                        </li>
-                        <li>
-                            Designed and <b>lead a hackathon project</b> with two others to enable an administrator to see a dynamic 3D rendering of multiple HoloLens user's locations, environments, and spatial information. 
-                        </li>
-                        <li>
-                            Updated or added testing in multiple projects using React-Testing-Library <img src="https://testing-library.com/img/octopus-64x64.png" alt="(RTL)"/> and Playwright<img src="https://playwright.dev/img/playwright-logo.svg" alt=""/>.
-                        </li>
-                        <li>
-                            Mentored a summer associate who then joined the team and was an interviewer for another open position.
-                        </li>
-                    </ul>
-                </div>
+                <hgroup>
+                    <h3>Microsoft</h3>
+                    <img src="https://c.s-microsoft.com/favicon.ico" alt=""/>
+                    <p>Software Engineer</p>
+                    <div class="date">2022-Present</div>
+                </hgroup>
+                <p>Built and maintained a three sites/pages using React <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg" alt="React"/> (<a href="https://mixedreality.dynamics.com/otc?d=1&correlationId=074349bc-97a0-475d-ac87-f633e77810ed">app luancher</a>, <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/one-time-call#before-selecting-create-a-one-time-call-link-in-the-model-driven-app">link generation UI</a>, and a usage dashboard).</p>
+                <p>Took ownership of a <b>Teams</b> <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-pc-all#add-annotations-in-the-dynamics-365-remote-assist-users-environment">feature</a> and brought it to general availability. Oversaw the migration of the feature from Teams 1.0 to Teams 2.0. Migrated the feature to Fluent UI v9. Became the group's "security champ" trained to triage and identify potential issues.</p>
+                <p><b>Mentored</b> and managed a summer intern who later would join the team.</p>
+                <p>Represented our products at <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Logo_of_Consumer_Electronics_Show.svg" alt="CES"/>. As the sole engineer of the team, was instrumental in debugging and maintaining the devices and giving technical explanations to visitors while delivering hundreds of demonstrations.
+                </p>
+                <p>
+                    Designed and <b>lead a hackathon project</b> with two others to enable an administrator to see a dynamic 3D rendering of multiple HoloLens user's locations, environments, and spatial information. 
+                </p>
+                <p>
+                    As part of <b>on-call</b> responsibilities, assumed long-term ownership of a customer issue that had been bounced around between multiple on-call shifts. Created a home-lab setup to enulate the client's proxy settings and identified an OS bug ignoring proxy configurations. Worked with the customer and the OS team to obtain logs and a fix.
+                </p>
+                <p>
+                    Added robust <b>testing</b> in multiple projects using React-Testing-Library <img src="https://testing-library.com/img/octopus-64x64.png" alt="(RTL)"/> and Playwright<img src="https://playwright.dev/img/playwright-logo.svg" alt=""/>.
+                </p>
             </li>
             <li>
-                <div class="header">
-                    <div class="logo"><img src="https://www.psu.edu/favicon.ico"/></div>                    
-                    <h3 class="location">Penn State</h3>
-                    <span class="title">Masters in Computer Science and Engineering</span>
-                    <div class="date">
-                        <span>2020</span>
-                        <span>2024</span>
-                    </div>
-                </div>
-                <div class="notes">
-                    Focused on embedded systems, networking, and image processing. Finished coursework in 2022 and completed captstone project in 2024 while employed at Microsoft.
-                </div>
+                <hgroup>
+                    <h3>Penn State University</h3>
+                    <img src="https://www.psu.edu/favicon.ico"/>
+                    <p>MS in Computer Science & Engineering</p>
+                    <div class="date">2020-2022</div>
+                </hgroup>
+                <p>Worked as a graduate assistant at the Applied Research Laborator (US Navy research institution) studying AI-based anomoly detection using TensorFlow <img src="https://www.gstatic.com/devrel-devsite/prod/vc5df62aff689c916c31b2ac1e49a7e8c5ecada1bb13dcdd68aaefb1e1e9b9ec0/tensorflow/images/favicon.png" alt=""/> and Python <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="">. </p>
+                <p>Coursework focused on <b>AI</b>, <b>networking</b>, and <b>embedded</b> systems.</p>
+                <p>*note: I finished all requirements except for a thesis when I started at Microsoft in 2022, ultimately receiving my diploma in 2024.</p>
             </li>
             <li>
-                <div class="header">
-                    <div class="logo"><img src="https://www.psu.edu/favicon.ico"/></div>                    
-                    <h3 class="location">Applied Research Lab</h3>
-                    <span class="title">Graduate Assistant</span>
-                    <div class="date">
-                        <span>2020</span>
-                        <span>2022</span>
-                    </div>
-                </div>
-                <div class="notes">
-                    <ul>
-                    <li>Investigated anomoly detection in synthetic aperture radar imagery using auto-encoders and other AI/image processing techniques </li>
-                    <li>Developed a mapping system to represent assets overlaid on a street map.</li>
-                    </ul>
-                </div>
+                <hgroup>
+                    <h3>Other</h3>
+                    <!-- <img src="https://www.psu.edu/favicon.ico"/> -->
+                    <p>Education and Patent Law Career</p>
+                    <div class="date">2005-2020</div>
+                </hgroup>
+                <p>
+                    <img src="https://www.hoganlovells.com/-/media/themes/hoganlovells/site-theme-name/images/common/hogan-lovells-logo.png?h=76&iar=0&w=76&hash=5AD2BE08383FDA3D743A0D71537EA21C"/> Hogan Lovells ('18-'20) and
+                    <img src="https://www.polsinelli.com/assets/favicon.ico"/> Polsinelli ('15-'18): <b>Patent attorney</b> primarily working with Amazon, Dropbox, and Cisco on cloud and networking technologies. Decided to become an engineer because I wanted to create and build technology, not just document it.
+                </p>
+                <p>
+                    <img src="https://brand.utah.edu/wp-content/uploads/sites/69/2022/02/BlockU_redweb.png"/> University of Utah (2014): Juris Doctorate with focus on IP law.
+                </p>
+                <p>
+                    <img src="https://content.sportslogos.net/logos/30/622/full/brigham_young_cougars_logo_secondary_20165329.png"/> Brigham Young University (2011): Major in economics with minors in CS and physics.
+                </p>
             </li>
-            <li>
-                <div class="header">
-                    <div class="logo"><img src="https://www.hoganlovells.com/-/media/themes/hoganlovells/site-theme-name/images/common/hogan-lovells-logo.png?h=76&iar=0&w=76&hash=5AD2BE08383FDA3D743A0D71537EA21C"/></div>                    
-                    <h3 class="location">Hogan Lovells</h3>
-                    <span class="title">Patent Agent</span>
-                    <div class="date">
-                        <span>2017</span>
-                        <span>2020</span>
-                    </div>
-                </div>
-                <div class="notes">
-                    Focused on cloud and networking, primarily with Amazon as a client.
-                </div>
-            </li>
-            <li>
-                <div class="header">
-                    <div class="logo" style="background-color:white;"><img src="https://www.polsinelli.com/assets/favicon.ico"/></div>                    
-                    <h3 class="location">Polsinelli</h3>
-                    <span class="title">Associate</span>
-                    <div class="date">
-                        <span>2014</span>
-                        <span>2017</span>
-                    </div>
-                </div>
-                <div class="notes">
-                    Focused on cloud, networking, IoT with Dropbox and Cisco as primary clients. Secundment at Dropbox for 6 months.
-                </div>
-            </li>
-            <li>
-                <div class="header">
-                    <div class="logo"><img src="https://brand.utah.edu/wp-content/uploads/sites/69/2022/02/BlockU_redweb.png"/></div>                    
-                    <h3 class="location">University of Utah</h3>
-                    <span class="title">Juris Doctor</span>
-                    <div class="date">
-                        <span>2011</span>
-                        <span>2014</span>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="header">
-                    <div class="logo"><img src="https://content.sportslogos.net/logos/30/622/full/brigham_young_cougars_logo_secondary_20165329.png"/></div>                    
-                    <h3 class="location">Brigham Young University</h3>
-                    <span class="title">BS Economics, Minors CS & Physics</span>
-                    <div class="date">
-                        <span>2005</span>
-                        <span>2011</span>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        </ol>
+    </section>
+    <section class="projects">
+        <h2>Sample Projects</h2>
     </section>
 </body>
 </html>
