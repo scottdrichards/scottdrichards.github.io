@@ -1,185 +1,484 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Scott Richards</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='all' href='index.css'>
-    <script src='main.js'></script>
+    <meta charset="UTF-8">
+    <title>Scott Richards - Resume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --primary: #2d3e50;
+            --accent: #00bfae;
+            --bg: #f7f9fa;
+            --text: #222;
+            --section-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            background: var(--section-bg);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(90deg, var(--primary) 70%, var(--accent) 100%);
+            color: #fff;
+            padding: 20px 40px 16px 40px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #fff;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .header-info {
+            flex: 1;
+        }
+        .name {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        .title {
+            font-weight: 200;
+        }
+        .contact {
+            margin-top: 8px;
+            font-size: 1rem;
+            color: #e0f7fa;
+        }
+        .contact a {
+            color: #e0f7fa;
+            text-decoration: underline;
+            margin-right: 18px;
+        }
+        main {
+            padding: 32px 20px;
+            display: block;
+        }
+        section {
+            margin-bottom: 10px;
+        }
+        .skills-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        .skills-category {
+            text-align: center;
+        }
+        .skills-category h3 {
+            color: var(--primary);
+            margin:0px 0 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .recognition-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+        }
+        .recognition-section blockquote {
+            background: var(--bg);
+            border-left: 3px solid var(--accent);
+            margin: 0;
+            padding: 16px 20px;
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-radius: 6px;
+            color: #555;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        h2 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            padding-bottom: 2px;
+        }
+        .skills-list, .edu-list, .exp-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .skills-list{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+        .skills-list li {
+            background: var(--bg);
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            border: 1px solid var(--accent);
+            color: var(--primary);
+        }
+        .exp-list li, .edu-list li {
+            margin-bottom: 5px;
+        }
+        .exp-header, .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .exp-left, .edu-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .job-title, .degree {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .company, .school {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .company-logo, .school-logo {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+        .date {
+            color: #888;
+            font-size: 0.95em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .desc {
+            margin: 6px 0 0 0;
+            font-size: 1rem;
+            color: #444;
+            & ul{
+                padding-left: 20px;
+            }
+        }
+        .interjection{
+            padding: 5px;
+            margin: 10px    5px;
+            font-style: italic;
+            background-color: color-mix(in srgb, var(--accent) 10%, white 90%);
+        }
+        .skills-subheading{
+            padding:0;
+            margin:8px 0 5px;
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+        .sidebar h3{
+            margin: 0px;
+        }
+        .hide{
+            display: none !important;
+        }
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+            .container {
+                max-width: none;
+                margin: 0;
+                box-shadow: none;
+                border-radius: 0;
+                background: white;
+            }
+            header {
+                margin: 0;
+                padding: 20px;
+                page-break-inside: avoid;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            main {
+                padding: 20px 0px;
+                page-break-inside: auto;
+            }
+            .recognition-section blockquote {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            .exp-list li, .edu-list li {
+                /* page-break-inside: avoid; */
+                /* break-inside: avoid; */
+                margin-bottom: 15px;
+            }
+            .interjection {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+        }
+        @media (max-width: 700px) {
+            main {
+                padding: 24px 12px;
+            }
+            .skills-section, .recognition-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px 16px;
+                gap: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <section class="summary">
-        <div class="name-portrait">
-            <div class="portrait"><img src="/media/portrait.png"/></div>
-            <h1>Scott<br/>Richards</h1>
-            <p>Software Engineer</p>
-        </div>
-        <div class="about-me">
-            <p>Whether mentoring new hires, refactoring old code, demo-ing at CES, or launching new features I strive to <b>work with people in mind</b>. This requires effective communication and collaboration with colleagues and users to ensure we all succeed together.</p>
-            <p>I have focused on <b>user interface</b> development, creating sites, pages, and features using <b>React</b> including a significant amount of work within the <b>Teams</b> codebase.</p>
-            <p>My unique background as a <b>patent attorney</b> gives me experience in working with complex ideas and translating them to various audiences.</p>
-        </div>
-        <div class="technologies">
-            <h2>Technologies</h2>
-            <div class="flex">
-                <div class="stargrid">
-                    <div>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg">
-                        <span class="name">Typescript</span>
-                        <span class="stars">★★★</span> 
+    <div class="container">
+        <header>
+            <img src="./portrait.jpg" alt="Scott Richards" class="avatar">
+            <div class="header-info">
+                <h1 class="name">Scott Richards</h1>
+                <div class="title">Senior Software Engineer</div>
+                <div class="contact">
+                    <a href="mailto:ScottDRichards@gmail.com">ScottDRichards@gmail.com</a>
+                    <a href="tel:+13523288341">352.328.8341</a>
+                    <a href="https://www.linkedin.com/in/scottdrichards" target="_blank">linkedin.com/in/scottdrichards</a>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section>
+                <div class="skills-section">
+                    <div class="skills-category">
+                        <h3>Languages</h3>
+                        <ul class="skills-list">
+                            <li>TypeScript</li>
+                            <li>JavaScript</li>
+                            <li>C#</li>
+                            <li>C</li>
+                            <li>C++</li>
+                            <li>Swift</li>
+                            <li>Python</li>
+                        </ul>
                     </div>
-                    <div>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="">
-                        <span>C++</span>
-                        <span class="stars">★★</span>
+                    <div class="skills-category">
+                        <h3>Frameworks</h3>
+                        <ul class="skills-list">
+                            <li>React</li>
+                            <li>Blazor</li>
+                            <li>Jest</li>
+                            <li>Playwright</li>
+                            <li class="hide">Testing-Library-React</li>
+                            <li>Tensorflow</li>
+                        </ul>
                     </div>
-                    <div>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="">
-                        <span>Python</span>
-                        <span class="stars">★★</span>
+                    <div class="skills-category">
+                        <h3>Topic Expertise</h3>
+                        <ul class="skills-list">
+                            <li>Frontend</li>
+                            <li class="hide">Accessibility</li>
+                            <li>Backend</li>
+                            <li>AI/ML</li>
+                            <li>Networking</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="stargrid">
-                    <div>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg" alt="">
-                        <span>React</span>
-                        <span class="stars">★★★</span>
-                    </div>
-                    <div>
-                        <img src="https://angular.dev/assets/icons/favicon.ico" alt=""/>
-                        <span>Angular</span>
-                        <span class="stars">★★</span>
-                    </div>
-                    <div>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" alt=""/>
-                        <span>Azure</span>
-                        <span class="stars">★★</span>
-                    </div>
-                </div>
-                <div class="also">
-                    <img src="https://playwright.dev/img/playwright-logo.svg" alt="playwright"/> 
-                    <img src="https://testing-library.com/img/octopus-64x64.png" alt="React-Testing-Library"/>
-                    <img src="https://jestjs.io/img/favicon/favicon.ico"" alt="Jest"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/en/1/15/Logo_D3.svg" alt="d3.js"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg" alt="Open Layers"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg" alt="Three js" class="black-image"/>
-                    <img src="https://rxjs.dev/generated/images/marketing/home/Rx_Logo-512-512.png" alt="RXJS"/>
-                    <img src="https://www.mongodb.com/assets/images/global/favicon.ico" alt="MongoDB"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GraphQL_Logo.svg" alt="Graphql"/>
-                    <img src="https://www.gstatic.com/devrel-devsite/prod/vc5df62aff689c916c31b2ac1e49a7e8c5ecada1bb13dcdd68aaefb1e1e9b9ec0/tensorflow/images/favicon.png" alt="tensorflow"/>
+            </section>
 
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="Amazon Web Services" class="img-needs-bkgnd"/>  
-                    <img src="https://www.docker.com/wp-content/uploads/2024/02/cropped-docker-logo-favicon-32x32.png" alt="Docker"/>
-                    <img src="https://www.proxmox.com/favicon.ico" alt="Proxmox"/>
-                    <img src="https://c.s-microsoft.com/favicon.ico" alt="Windows"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png" alt="Mac" class="black-image"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Linux"/>
-                    <img src="https://developer.android.com/static/images/brand/Android_Robot.svg" alt="Android" style="width:28px"/>
-        
-                    <img src="https://upload.wikimedia.org/wikipedia/en/c/cb/Raspberry_Pi_Logo.svg" alt="Raspberry Pi"/> 
+            <section>
+                <h2>Experience</h2>
+                <ul class="exp-list">
+                    <li>
+                        <div class="exp-header">
+                            <div class="exp-left">
+                                <img src="https://www.microsoft.com/favicon.ico" alt="Microsoft" class="company-logo">
+                                <span class="workplace">Microsoft</span>
+                                <span class="job-title">Senior Software Engineer</span>
+                            </div>
+                            <span class="date">2025 - Present</span>
+                        </div>
+                        <div class="desc">
+                            <ul>
+                                <li>Created Python testing scripts for a classification agent including synthetic data generation, test execution, and results visualization with confusion matrices and performance graphs; trained team on the process</li>
+                                <li>Proposed, designed, and implemented a performance profiler for an application maintained by a dozen engineers across two teams; identified root causes of inefficiencies and conducted presentations to stakeholders, eventually guiding optimization efforts</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="exp-header">
+                            <div class="exp-left">
+                                <img src="https://www.microsoft.com/favicon.ico" alt="Microsoft" class="company-logo">
+                                <span class="workplace">Microsoft</span>
+                                <span class="job-title">Software Engineer</span>
+                            </div>
+                            <span class="date">2022 - 2025</span>
+                        </div>
+                        <div class="desc">
+                            <ul>
+                                <li>
+                                    Brought spatial annotations on Teams iOS to general availability, including iOS development, performance optimization, and security reviews
+                                </li>
+                                <li>Reconfigured a project's jest testing framework to achieve a 20x speedup, dramatically improving feedback loop for developers</li>
+                                <li>After joining an in-progress project, determined that the choice of Blazor and Adaptive Cards was a significant impediment to development velocity; proposed, demoed, advocated, and ultimately led the migration to React</li>
+                                <li class="hide">Implemented UI testing using React Testing Library and Jest on multiple projects to decrease the reliance on manual QA testing</li>
+                                <li>Built a comprehensive utilization dashboard in React replacing a PowerBI template; turning a daily report into a real-time monitoring tool and streamlining dashboard maintenance</li>
+                                <li class="hide">Built a page in React and Powerapps enabling a user to generate a sharable link and corresponding website in React to onboard a link recipient to the app and launch the app via deeplink</li>
+                                <li>Represented Microsoft at CES 2023, conducting hundreds of live demos and maintaining Hololens devices</li>
+                                <li>Designed and led a React hackathon project to create a live view of mixed-reality participants' locations and orientations</li>
+                                <li>Trained a summer intern who successfully implemented a new feature and would later join the team</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="exp-header">
+                            <div class="exp-left">
+                                <img src="https://www.psu.edu/favicon.ico" alt="Applied Research Laboratory" class="company-logo">
+                                <span class="workplace">Applied Research Laboratory</span>
+                                <span class="job-title">Research Assistant</span>
+                            </div>
+                            <span class="date">2020 - 2022</span>
+                        </div>
+                        <div class="desc">
+                            <ul>
+                                <li>Created a system for anomaly detection in synthetic aperture radar sonar imagery based on autoencoder reconstruction error using Tensorflow and Python</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="interjection">
+                    Career pivot: I loved learning about technology as a patent attorney but longed to create and innovate myself so I transitioned to become an engineer.
                 </div>
-            </div>
-        </div>
-        <div class="hobbies">
-            <h2>Hobbies</h2>
-            <div>
-                <div>
-                    <div class="icon">📷</div> Photography
+                <ul class="exp-list">
+                    <li>
+                        <div class="exp-header">
+                            <div class="exp-left">
+                                <img src="https://www.hoganlovells.com/-/media/themes/hoganlovells/site-theme-name/images/rebrand/favicon.ico" alt="Hogan Lovells" class="company-logo">
+                                <span class="workplace">Hogan Lovells</span>
+                                <span class="job-title">Patent Attorney</span>
+                            </div>
+                            <span class="date">2017 - 2020</span>
+                        </div>
+                        <div class="desc">
+                            <ul>
+                                <li>Primarily working on <img src="https://www.amazon.com/favicon.ico" alt="Amazon" class="company-logo" style="display: inline; width: 16px; height: 16px; margin: 0 2px; vertical-align: middle;">Amazon patents in cloud computing and e-commerce technologies</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="exp-header">
+                            <div class="exp-left">
+                                <img src="https://cfl.dropboxstatic.com/static/metaserver/static/images/favicon.ico" alt="Dropbox" class="company-logo">
+                                <span class="workplace">Dropbox</span>
+                                <span class="job-title">Secondee (on Loan as an Attorney Consultant)</span>
+                            </div>
+                            <span class="date">2016</span>
+                        </div>
+                        <div class="desc">
+                            <ul>
+                                <li>6-month assignment with in-house legal team on IP strategy and portfolio development</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="exp-header">
+                            <div class="exp-left">
+                                <img src="https://www.polsinelli.com/assets/favicon.ico" alt="Novak Druce/Polsinelli" class="company-logo">
+                                <span class="workplace">Novak Druce/Polsinelli</span>
+                                <span class="job-title">Patent Attorney</span>
+                            </div>
+                            <span class="date">2015 - 2017</span>
+                        </div>
+                        <div class="desc">
+                            <ul>
+                                <li>Drafted and prosecuted patents for 
+                                    <img src="https://www.amazon.com/favicon.ico" alt="Amazon" class="company-logo" style="display: inline; width: 16px; height: 16px; margin: 0 2px; vertical-align: middle;">Amazon, 
+                                    <img src="https://www.cisco.com/favicon.ico" alt="Cisco" class="company-logo" style="display: inline; width: 16px; height: 16px; margin: 0 2px; vertical-align: middle;">Cisco, 
+                                    <img src="https://cfl.dropboxstatic.com/static/metaserver/static/images/favicon.ico" alt="Dropbox" class="company-logo" style="display: inline; width: 16px; height: 16px; margin: 0 2px; vertical-align: middle;">Dropbox, 
+                                    <img src="https://www.sony.com/en/favicon.ico" alt="Sony" class="company-logo" style="display: inline; width: 16px; height: 16px; margin: 0 2px; vertical-align: middle;">Sony, and others</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            
+            <section>
+                <h2>Education</h2>
+                <ul class="edu-list">
+                    <li>
+                        <div class="edu-header">
+                            <div class="edu-left">
+                                <img src="https://www.psu.edu/favicon.ico" alt="Penn State University" class="school-logo">
+                                <span class="school">Penn State University</span>
+                                <span class="degree">M.S. Computer Science and Engineering</span>
+                            </div>
+                            <span class="date">2020 - 2022</span>
+                        </div>
+                        <div class="desc">Coursework focused on AI, image processing, networking, computer architecture, and embedded systems</div>
+                    </li>
+                    <li>
+                        <div class="edu-header">
+                            <div class="edu-left">
+                                <img src="https://templates.utah.edu/_main-v3-1/images/template/favicon.ico" alt="University of Utah" class="school-logo">
+                                <span class="school">University of Utah</span>
+                                <span class="degree">Juris Doctorate</span>
+                            </div>
+                            <span class="date">2014</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="edu-header">
+                            <div class="edu-left">
+                                <img src="https://www.byu.edu/favicon.ico" alt="Brigham Young University" class="school-logo">
+                                <span class="school">Brigham Young University</span>
+                                <span class="degree">B.S. in Economics</span>
+                            </div>
+                            <span class="date">2011</span>
+                        </div>
+                        <div class="desc"> 
+                            Minors in computer science and physics
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Recognition</h2>
+                <div class="recognition-section">
+                    <blockquote>
+                        "Scott [was] absolutely critical in landing the [project] acquisition and deployment workflow. [He is] clearly viewed as an SME in terms of client side coding"
+                    </blockquote>
+                    <blockquote>
+                        "[Scott] embod[ies] all the qualities of an outstanding engineer: technical skills, a proactive approach to problem-solving, strong communication abilities, and a collaborative spirit"
+                    </blockquote>
+                    <blockquote>
+                        "[Scott is] very proactive for fixing bugs, investigating new problems, helping folks out, fixing inefficiencies, and improving systems. [He's] putting up several PRs a week, sometimes several a day"
+                    </blockquote>
                 </div>
-                <div>
-                    <div class="icon">🪚</div> Woodworking
-                </div>
-                <div>
-                    <div class="icon">⚽</div> Soccer
-                </div>
-                <div>
-                    <div class="icon">📐</div>
-                    3D Printing
-                </div>
-                <div>
-                    <div class="icon">🖥️</div> VMs, automation, networking
-                </div>
-            </div>
-        </div>
-        <div class="contact">
-            <div>
-                <div class="icon">☎</div>
-                <a href="tel:3523288341">352.328.8341</a>
-            </div>
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="icon">
-                    <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-                </svg>
-                <a href="https://www.linkedin.com/in/scottdrichards">linkedin.com/in/scottdrichards</a>
-            </div>
-            <div>
-                <div class="icon">@</div>
-                <a href="mailto:scottdrichards@gmail.com">scottdrichards@gmail.com</a>
-            </div>
-            <div>
-                <div class="icon" style="filter:grayscale() contrast(1.6)">🌎</div>
-                <a href="https://scottdrichards.github.io">scottdrichards.github.io</a>
-            </div>
-        </div>
-    </section>
-    <section class="experience">
-        <h2>Experience</h2>
-        <ol>
-            <li>
-                <hgroup>
-                    <h3>Microsoft</h3>
-                    <img src="https://c.s-microsoft.com/favicon.ico" alt=""/>
-                    <p>Software Engineer</p>
-                    <div class="date">2022-Present</div>
-                </hgroup>
-                <p>Built and maintained three sites/pages using React <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg" alt="React"/> (<a href="https://mixedreality.dynamics.com/otc?d=1&correlationId=074349bc-97a0-475d-ac87-f633e77810ed">app luancher</a>, <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/one-time-call#before-selecting-create-a-one-time-call-link-in-the-model-driven-app">link generation UI</a>, and a usage dashboard).</p>
-                <p>Took ownership of a <b>Teams</b> <a href="https://learn.microsoft.com/en-us/dynamics365/mixed-reality/remote-assist/teams-pc-all#add-annotations-in-the-dynamics-365-remote-assist-users-environment">feature</a> and brought it to general availability. Oversaw the migration of the feature from Teams 1.0 to Teams 2.0. Migrated the feature to Fluent UI v9. Became the group's "security champ" trained to triage and identify potential issues.</p>
-                <p><b>Mentored</b> and managed a summer intern who later would join the team.</p>
-                <p>Represented our products at <img src="https://upload.wikimedia.org/wikipedia/en/0/0f/Logo_of_Consumer_Electronics_Show.svg" alt="CES"/>. As the sole engineer of the team, was instrumental in debugging and maintaining the devices and giving technical explanations to visitors while delivering hundreds of demonstrations.
-                </p>
-                <p>
-                    Designed and <b>lead a hackathon project</b> with two others providing a dynamic 3D overview of multiple HoloLens users' locations, environments, and spatial information. 
-                </p>
-                <p>
-                    As part of <b>on-call</b> responsibilities, assumed long-term ownership of a customer issue that had been bounced around between multiple on-call shifts. Created a home-lab setup to emulate the client's proxy settings and identified an OS bug ignoring proxy configurations. Worked with the customer and the OS team to obtain logs and a fix.
-                </p>
-                <p>
-                    Added robust <b>testing</b> in multiple projects using React-Testing-Library <img src="https://testing-library.com/img/octopus-64x64.png" alt="(RTL)"/> and Playwright<img src="https://playwright.dev/img/playwright-logo.svg" alt=""/>.
-                </p>
-            </li>
-            <li>
-                <hgroup>
-                    <h3>Penn State University</h3>
-                    <img src="https://www.psu.edu/favicon.ico"/>
-                    <p>MS in Computer Science & Engineering</p>
-                    <div class="date">2020-2022</div>
-                </hgroup>
-                <p>Worked as a graduate assistant at the Applied Research Laborator (US Navy research institution) studying AI-based anomoly detection using TensorFlow <img src="https://www.gstatic.com/devrel-devsite/prod/vc5df62aff689c916c31b2ac1e49a7e8c5ecada1bb13dcdd68aaefb1e1e9b9ec0/tensorflow/images/favicon.png" alt=""/> and Python <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="">. </p>
-                <p>Coursework focused on <b>AI</b>, <b>networking</b>, and <b>embedded</b> systems.</p>
-                <p>*note: finished all requirements except for a thesis when starting at Microsoft in 2022, ultimately receiving diploma in 2024.</p>
-            </li>
-            <li>
-                <hgroup>
-                    <h3>Other</h3>
-                    <p>Education and Patent Law Career</p>
-                    <div class="date">2005-2020</div>
-                </hgroup>
-                <p>
-                    <img src="https://www.hoganlovells.com/-/media/themes/hoganlovells/site-theme-name/images/common/hogan-lovells-logo.png?h=76&iar=0&w=76&hash=5AD2BE08383FDA3D743A0D71537EA21C"/> Hogan Lovells ('18-'20) and
-                    <img src="https://www.polsinelli.com/assets/favicon.ico"/> Polsinelli ('15-'18): <b>Patent attorney</b> primarily working with Amazon, Dropbox, and Cisco on cloud and networking technologies. <b>Decided to become an engineer to create and build technology, not just document it</b>.
-                </p>
-                <p>
-                    <img src="https://brand.utah.edu/wp-content/uploads/sites/69/2022/02/BlockU_redweb.png"/> University of Utah (2014): Juris Doctorate with focus on IP law.
-                </p>
-                <p>
-                    <img src="https://content.sportslogos.net/logos/30/622/full/brigham_young_cougars_logo_secondary_20165329.png"/> Brigham Young University (2011): Major in economics with minors in CS and physics.
-                </p>
-            </li>
-        </ol>
-    </section>
-    <!-- <section class="projects">
-        <h2>Sample Projects</h2>
-    </section> -->
+            </section>
+        </main>
+    </div>
 </body>
 </html>
